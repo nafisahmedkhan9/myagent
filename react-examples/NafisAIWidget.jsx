@@ -13,9 +13,9 @@ const NafisAIWidget = ({
   height = "600px",
   showToggle = true,
   position = "bottom-right", // "bottom-right", "bottom-left", "fixed", "inline"
-  title = "Chat with Nafis's AI Assistant",
-  icon = "🤖",
-  welcomeMessage = "Hello! I'm an AI assistant representing Nafis Ahmed Khan. Feel free to ask me about his professional background, skills, experience, qualifications, or any career-related questions. How can I help you today?"
+  title = "Chat with Nafis",
+  icon = "👤", 
+  welcomeMessage = "Hey there! I'm Nafis Ahmed Khan 👋 Great to meet you! Feel free to ask me about my work, experiences, background, or just chat about anything. What would you like to know?"
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -37,17 +37,16 @@ const NafisAIWidget = ({
     const url = new URL(agentUrl);
     
     // Add customization parameters
-    if (title !== "Chat with Nafis's AI Assistant") {
+    if (title !== "Chat with Nafis") {
       url.searchParams.set('title', title);
     }
-    if (icon !== "🤖") {
+    if (icon !== "👤") {
       url.searchParams.set('icon', icon);
     }
-    if (welcomeMessage !== "Hello! I'm an AI assistant representing Nafis Ahmed Khan. Feel free to ask me about his professional background, skills, experience, qualifications, or any career-related questions. How can I help you today?") {
+    if (welcomeMessage !== "Hey there! I'm Nafis Ahmed Khan 👋 Great to meet you! Feel free to ask me about my work, experiences, background, or just chat about anything. What would you like to know?") {
       url.searchParams.set('welcome', encodeURIComponent(welcomeMessage));
     }
     
-    console.log('🔗 Built iframe URL:', url.toString());
     return url.toString();
   };
 
