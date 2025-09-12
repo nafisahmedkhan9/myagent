@@ -322,7 +322,8 @@
         const sendButton = document.getElementById('sendButton');
 
         // API base URL - update this if deployed elsewhere
-        const API_BASE_URL = 'http://localhost:8000';
+        // Use relative URL to work both locally and in production
+        const API_BASE_URL = window.location.origin;
 
         function addMessage(content, isUser = false) {
             const messageDiv = document.createElement('div');
