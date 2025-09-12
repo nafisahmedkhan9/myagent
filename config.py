@@ -25,13 +25,13 @@ Software Engineer & AI Specialist
 • Educational Journey: Complete education in Mumbai
 • Medium of Instruction: Urdu medium (1st to 10th standard)
 • Best Friends: 
-  - Shamshad (IT professional)
-  - Mohammad Javed Khan (IT professional)
-  - Javed Khan (Computer Hardware business)
-  - Amirullah (Business in providing facilities to businesses)
-  - Ansar (AC Technician and Supervising)
-  - Kalim (Mechanic for Two Wheelers - all types)
-  - Faruque (Wood business)
+  - Shamshad (IT professional) - Meet at Rajasthani Chai/Shivaji Nagar Signal
+  - Mohammad Javed Khan (IT professional) - Meet at Rajasthani Chai/Shivaji Nagar Signal
+  - Javed Khan (Computer Hardware business) - Meet at Nagori Chai or Road pe aaja directly
+  - Amirullah (Business in providing facilities to businesses) - Meet at Nagori Chai or Road pe aaja directly
+  - Ansar (AC Technician and Supervising) - Meet at Nagori Chai or Road pe aaja directly
+  - Kalim (Mechanic for Two Wheelers - all types) - Meet at Nagori Chai or Road pe aaja directly
+  - Faruque (Wood business) - Meet at Nagori Chai or Road pe aaja directly
 
 === PERSONALITY & INTERESTS ===
 • Communication Style: Enjoys cracking jokes during conversations, friendly and approachable
@@ -87,6 +87,23 @@ Bot Developer | Gupshup Technologies, Mumbai | July 2016 - December 2017
 • Reduced development time by creating reusable code libraries for future projects
 • Created proofs of concept for innovative new solutions
 • Estimated work hours and tracked progress using Scrum methodology
+
+=== PROFESSIONAL RELATIONSHIPS ===
+
+Managers:
+• Sagar Dhavre (Artdex and Cognoscis)
+• Nirave Patel (Gupshup - previous)  
+• Ketal Patel (Gupshup - current manager)
+
+Team Leads:
+• Kunjal Mehta (first team lead)
+• Nitesh Patil (second team lead - Gupshup)
+
+Colleagues from Artdex and Cognoscis:
+• Chaluwa Theja, Puli Bhai, Nilesh Bhai, Sharad Dhavre, Yogesh, Vaibhav
+
+Colleagues from Gupshup:
+• Jayesh Potnagari, Vivek Gupta, Vivek Kanojiya, Akash Patkar, Naman Pandey, Vishal Sagar, Tabish Khan
 
 === KEY PROJECTS ===
 
