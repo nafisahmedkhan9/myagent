@@ -1,0 +1,211 @@
+﻿Name - Nafis Ahmed Khan 
+Title - Software Engineer 
+Address - Mumbai, Maharashtra 400043
+Phone - +919769574878
+E-mail - nafisahmedkhan9@gmail.com
+Nationality - Indian
+LinkedIn - www.linkedin.com/in/nafisahmedkhan9993
+Github - https://github.com/nafisahmedkhan9
+Gender - Male
+My Profile Link - https://nafisahmedkhan9.github.io/myprofile/ 
+	
+
+Experienced with integrating complex systems and creating custom solutions tailored to client requirements. Utilizes collaborative approach to solve technical challenges and enhance project outcomes. Knowledge of client relationship management and technical troubleshooting.
+
+
+=== Skills & Technologies ===
+Conversational AI
+AI Agents
+Chat bots
+NodeJS
+ReactJs	
+Python
+Django
+FastAPI
+Full Stack Development
+Software Development
+API Development
+Web Development
+Requirements Gathering
+SQL/NoSQL Databases
+MongoDB
+MYSQL
+Bootstrap
+Material UI
+JavaScript
+Business Process Improvement
+	
+
+=== Education ===
+2016-01 - 2025-06
+Master of Science: Computer Applications 
+Indira Gandhi National Open University ( IGNOU ) - Mumbai
+* Final Grade: 60%
+	
+2013-07 - 2016-04
+Bachelor of Science: Information Technology 
+Sree Narayana Guru College - Mumbai 
+* Final Grade: 64%
+
+
+=== Work History ==
+2021-11 - Current
+Software Solutions Engineer-2 
+Gupshup technologies, Mumbai
+* Developed effective solutions through close collaboration with cross-functional teams.
+* Continuously expanded technical knowledge base through ongoing professional development opportunities and active participation within industry forums or events.
+* Devised innovative strategies for problem-solving, resulting in faster resolution times.
+* Coordinated with customers and resolved all technical issues and prepared documents.	
+
+2017-12 - 2021-11
+Fullstack Developer 
+Artdex and Cognoscis technologies, Mumbai
+* Reduced page load times by optimizing front-end assets such as JavaScript files, stylesheets, and images.
+* Worked with back-end developers to design APIs.
+* Integrated third-party APIs to enhance functionality and improve overall user experience on web platforms.
+* Used NodeJS, ORM and SQL/No-SQL to develop and manage databases.
+	
+2016-07 - 2017-12
+Bot Developer 
+Gupshup technologies, Mumbai
+* Reduced development time by creating reusable code libraries for future projects.
+* Created proofs of concept for innovative new solutions.
+* Estimated work hours and tracked progress using Scrum methodology.
+	
+
+=== Projects ===
+Smart Receipt Processor ( Python - OCR + AI ) -
+A FastAPI-based application that uses OCR (Optical Character Recognition) and AI to extract structured data from receipt PDFs. The application combines Tesseract OCR with Ollama3 (Llama3) to intelligently parse receipt information including merchant names, total amounts, and purchase dates.
+
+
+PDF Upload & Validation: Upload receipt PDFs with comprehensive validation
+OCR Text Extraction: Extract text from PDF images using Tesseract
+AI-Powered Parsing: Use Ollama3 (Llama3) to intelligently extract receipt data
+Structured Data Extraction: 
+* Automatically extract:
+   * Merchant/Store name
+   * Total amount
+   * Purchase date and time
+* Database Storage: SQLite database for storing receipt data
+* RESTful API: Complete REST API with FastAPI
+* Error Handling: Robust error handling with fallback parsing
+* Validation System: Multi-step validation for receipt quality
+GithubLink - https://github.com/nafisahmedkhan9/smart-receipt-processor-OCR-AI
+
+
+Chatbots ( Nodejs ) 
+Have created many chat bots for many clients for channels like whatsapp, facebook messenger, web widget using gupshup platform and nodejs programming.
+
+
+Few top clients are National Consumer Helpline ( Indian Government ), Kotak, Swiggy, Policybazaar, Pristyn care, Welspun, Zeiss, Orchid Fertility (UAE), Kilimanjaro Restaurants ( Nigeria ), Brand Buddies, Dell, Akash Education, Haier India, Petromin (SAUDI), RIVA (SAUDI, UAE, KUWAIT) etc.
+
+
+Chatbots Support — Application Management ( Reactjs + Nodejs ) -
+Designed and implemented a web application to display all servers and their respective applications used by the team.
+Incorporated advanced filtering options, including:
+* Date range filter
+* Server-based filter
+* Global filter for multiple fields to enhance usability and flexibility.
+* Streamlined server and application monitoring for the team, improving efficiency and accessibility.
+
+
+Chatbots support products 
+In chatbots many clients ask for the analytics like how many times a flow is triggered, how many users are active etc. So i have created a analytics dashboard for clients and a common solution which can be used for many bots
+
+
+Link Tracking ( Nodejs ) 
+This is an application where we are tracking clicks of links  for any bots. We have created a webhook route to get the link click event. After getting event we are saving data to the database ( MongoDB ), Google Sheet
+
+
+
+
+Kotak analytics dashboard ( Nodejs + Reactjs ) 
+This is used to show the analytics of kotak bots with many filters. Analytics like no. of users, how many users are in a particular state of conversation etc.
+
+
+Common Analytics Dashboard ( Nodejs + html ) 
+This is a common solution for many bots. This is used to show the data of bots in a table with many filters
+
+
+Sheet Data Uploader ( Nodejs + html ) 
+This is a common solution for many bots. In this application user can upload bulk data using csv or xlsx file to the mysql database which can be used in chatbots to verify user
+
+
+Zeiss ( Nodejs + Reactjs ) 
+This is a web portal which is used to generate the eyecare prescription and that prescription send to the user's whatsapp number using the api request
+
+
+Sportzxchange - Fantasy application like dream11 ( ReactJs + Python Django )
+My role is to provide admin panel in which whole application process is handled like creating match, contest, prize distribution etc
+Have done some backend work like creating api which is required in admin panel
+
+
+Master Data Management - Navi GI ( Reactjs + Python Django )
+MDM - MDM which is an ongoing project for the digital layer of Navi GI. In this engagement 4 resources were involved. Following features are implemented in MDM.
+* MDM to act as Master Data Provider for various other services- Via API interface to Agent portal, customer portal
+*  It has Maker-Checker workflow
+* Individual and Bulk upload features for the master data.
+* It provides convenience of  dynamic mapping of csv file to bulk upload the data, this effectively eliminates  the hardcoding of csv columns expected in a csv file
+* Synchronization of Master data with Intermediary via API and sftp.
+* A centralized RBAC authorization service
+
+
+Constitution of India ( Python Django )
+A simple android application that renders the full constitution. As well as app is an aggregator of the polity and constitutional related articles taken from web, editorials of newspaper, magazines etc. The backend is developed in Python with django
+Framework and elastic search integration to conduct full text search.
+Responsibility : Developed backend using Python/Django/Elasticsearch
+Link - https://play.google.com/store/apps/details?id=com.cognoscis.constitution
+
+
+Sales ERP App ( ReactJS  + Python Django)
+A custom Sales ERP developed to digitize the sales process of the client's organization.
+The Frontend is developed in Reactjs and Bootstrap and Backend is developed in Python with Django Framework. Postgres is used as a Datastore.
+Responsibility :
+* Complete Backend and Frontend  Development using Python/Django and ReactJS.
+* Role based access authorization
+* Workflow implementation
+* Reporting
+* Development Order Management Flow
+
+
+Theraputix ( ReactJs + Python Django )
+A web application which facilitates the interaction between patients and dietitians.  Patient/User can book appointments with the dieticians. An actual consultation takes place over a video call or messaging.
+* Frontend : Reactjs and bootstrap
+* Backend  : Python with Django Framework
+* Third Party : Twilio , HIPAA compliant Database service.
+
+
+Cloudwalker ( ReactJS )
+A rich tv content management utility & android based dashboard interface for Tvs. Developed for one of our clients. Using this backend content manager at Cloudwalker services can create schedules for TV Programs/Movies to be shown on TV Dashboard. This app also includes a recommendation engine.
+Frontend of web application: ReactJS
+Backend : SailsJs (a node js based framework), Nodejs
+Databases : MongoDb and Mysql
+Responsibility :
+* I was involved in the backend part of the project.
+* Content Scheduling and Management Interface
+* Development of Web Endpoint for Android TV client
+
+
+
+Ensemble Energy ( ReactJs )
+As a part of the team I was involved in frontend development of  an advanced, cloud based data analytics platform. The platform uses proprietary machine learning algorithms developed to predict possible failure in wind turbines and suggests corrective measures to be taken. The backend is built in python/django and uses PostgreSQL database. The front end is written in ReactJS using charting libraries
+Link - http://ensemble.energy
+
+
+Learnosys ( ReactJs )
+An online content reading and publishing market place. Implemented microservices architecture. Microservices are developed using python/django, nodejs.
+Responsibility:
+I was involved in developing the frontend ReactJS component for various microservices.
+
+
+BrandFactory ( Python Django )
+This is the Android application which is based on a brand factory to show all the offers and recent activities in the Stores. Quiz playing for getting more offers.
+Responsibility:
+* Developed Backend requirements using python & Django.
+* Data Modelling
+* Product catalog with various filters based on location, type of product, store
+
+
+Housie ( Nodejs + html )
+This is an online multiplayer game in which many players can play the housie by creating and joining the same group.
+For Frontend html is used and For server side Nodejs was used.
