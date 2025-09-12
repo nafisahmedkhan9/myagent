@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nafis AI Widget Demo - Clean Chat Window</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 40px;
+        }
+
+        .demo-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .demo-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Clean Chat Widget Styles - No Background/Borders */
+        .widget-container {
+            position: relative;
+            /* Removed all background, borders, shadows, padding */
+        }
+
+        .floating-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 380px;
+            height: 600px;
+            z-index: 1000;
+            display: none;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .floating-widget.open {
+            display: block;
+        }
+
+        .toggle-btn.hidden {
+            display: none;
+        }
+
+        .inline-widget {
+            width: 100%;
+            height: 500px;
+            /* Removed margin */
+        }
+
+        .widget-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            /* Removed border-radius for seamless look */
+        }
+
+        .toggle-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #0084ff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 132, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Removed close button - seamless chat window */
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .demo-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #e1e5e9;
+        }
+
+        .demo-item h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .success-badge {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #333;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-widget {
+                width: 320px;
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Nafis AI Widget Demo</h1>
+            <p>Clean Chat Window - Facebook/LinkedIn Style</p>
+        </div>
+
+        <div class="content">
+            <div class="success-badge">
+                ✅ Served from same domain - No CORS issues!
+            </div>
+
+            <div class="demo-section">
+                <h2>🎯 Seamless Chat Window</h2>
+                <p>Pure iframe with no background, borders, or padding - looks like a native chat window:</p>
+                
+                <div class="widget-container inline-widget">
+                    <iframe 
+                        src="/iframe" 
+                        class="widget-iframe"
+                        title="Nafis AI Agent"
+                        allow="camera; microphone; geolocation"
+                        sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation">
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h2>📱 Floating vs Inline Comparison</h2>
+                <div class="demo-grid">
+                    <div class="demo-item">
+                        <h3>💬 Floating Widget</h3>
+                        <p>Click the blue button in the bottom-right corner to see the seamless floating chat.</p>
+                        <ul>
+                            <li>No background or borders</li>
+                            <li>Toggleable visibility</li>
+                            <li>Fixed position</li>
+                            <li>Pure iframe - no card styling</li>
+                        </ul>
+                    </div>
+                    <div class="demo-item">
+                        <h3>📄 Inline Widget</h3>
+                        <p>The widget above shows seamless inline embedding - no container styling.</p>
+                        <ul>
+                            <li>Embedded in page content</li>
+                            <li>Always visible</li>
+                            <li>Responsive sizing</li>
+                            <li>Zero margin/padding</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h2>⚛️ React Integration Code</h2>
+                <p>Use this clean component in your React projects:</p>
+                
+                <div class="code-block">
+// Floating Facebook/LinkedIn style chat
+&lt;NafisAIWidget 
+  agentUrl="http://localhost:8000/iframe"
+  position="bottom-right"
+  width="380px"
+  height="600px"
+/&gt;
+
+// Clean inline embedding
+&lt;NafisAIWidget 
+  agentUrl="http://localhost:8000/iframe"
+  position="inline"
+  showToggle={false}
+  width="100%"
+  height="500px"
+/&gt;
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h2>🚀 Deployment URLs</h2>
+                <p>For production deployment, update the agentUrl:</p>
+                
+                <div class="code-block">
+// Development (local)
+agentUrl="http://localhost:8000/iframe"
+
+// Production (deployed)
+agentUrl="https://nafis-ai-agent.onrender.com/iframe"
+
+// This demo page
+agentUrl="/iframe"  // Same domain, no CORS issues
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Widget -->
+    <button class="toggle-btn" onclick="toggleFloatingWidget()" id="toggleBtn">
+        💬
+    </button>
+
+    <div class="widget-container floating-widget" id="floatingWidget">
+        <iframe 
+            src="/iframe" 
+            class="widget-iframe"
+            title="Nafis AI Agent - Floating"
+            allow="camera; microphone; geolocation"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation">
+        </iframe>
+    </div>
+
+    <script>
+        function closeFloatingWidget() {
+            const widget = document.getElementById('floatingWidget');
+            const btn = document.getElementById('toggleBtn');
+            
+            widget.style.transform = 'translateY(100%)';
+            setTimeout(() => {
+                widget.classList.remove('open');
+                btn.classList.remove('hidden'); // Show the toggle button again
+            }, 300);
+            btn.innerHTML = '💬';
+            btn.title = 'Chat with Nafis';
+        }
+
+        function openFloatingWidget() {
+            const widget = document.getElementById('floatingWidget');
+            const btn = document.getElementById('toggleBtn');
+            
+            widget.classList.add('open');
+            btn.classList.add('hidden'); // Hide the toggle button
+            setTimeout(() => {
+                widget.style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        function toggleFloatingWidget() {
+            const widget = document.getElementById('floatingWidget');
+            
+            if (widget.classList.contains('open')) {
+                closeFloatingWidget();
+            } else {
+                openFloatingWidget();
+            }
+        }
+
+        // Add hover effects
+        document.getElementById('toggleBtn').addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
+        });
+
+        document.getElementById('toggleBtn').addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+
+        // Listen for close messages from iframe
+        window.addEventListener('message', function(event) {
+            if (event.data === 'closeChat') {
+                closeFloatingWidget();
+            }
+        });
+
+        // Smooth animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const widget = document.getElementById('floatingWidget');
+            widget.style.transform = 'translateY(100%)';
+            widget.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
+    </script>
+</body>
+</html>

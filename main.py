@@ -34,10 +34,18 @@ app.add_middleware(
 async def add_iframe_headers(request, call_next):
     response = await call_next(request)
     
-    # Allow iframe embedding from any origin (for demo purposes)
-    # For production, you should specify your exact domain
-    response.headers["X-Frame-Options"] = "ALLOWALL"
-    response.headers["Content-Security-Policy"] = "frame-ancestors *"
+    # Allow iframe embedding from any origin
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["Content-Security-Policy"] = "frame-ancestors 'self' *"
+    
+    # Additional headers for iframe compatibility
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    
+    # Ensure proper CORS for iframe requests
+    if request.method == "OPTIONS":
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "*"
     
     return response
 
@@ -68,6 +76,11 @@ async def root():
 async def iframe_version():
     """Iframe-optimized version of the chat interface"""
     return FileResponse('static/index.html')
+
+@app.get("/demo")
+async def widget_demo():
+    """Demo page showing clean iframe integration"""
+    return FileResponse('static/iframe-demo.html')
 
 @app.get("/api")
 async def api_info():

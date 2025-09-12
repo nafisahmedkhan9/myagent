@@ -13,58 +13,116 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 800px;
-            height: 600px;
-            display: flex;
-            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
             overflow: hidden;
         }
 
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+
         .header {
-            background: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px;
-            text-align: center;
+            padding: 16px 20px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
         }
 
         .header h1 {
-            font-size: 1.8em;
-            margin-bottom: 5px;
+            font-size: 1.1em;
+            margin: 0;
+            font-weight: 600;
         }
 
         .header p {
-            opacity: 0.8;
-            font-size: 0.9em;
+            display: none;
+        }
+
+        .close-button {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .close-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
         }
 
         .chat-container {
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 20px;
             overflow: hidden;
+            position: relative;
         }
 
         .messages {
             flex: 1;
             overflow-y: auto;
-            margin-bottom: 20px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 10px;
+            padding: 20px 20px 100px 20px;
+            background: white;
+            scroll-behavior: smooth;
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 2px;
+        }
+
+        .messages::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
         }
 
         .message {
@@ -77,16 +135,19 @@
         }
 
         .user-message {
-            background: #007bff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             margin-left: auto;
             text-align: right;
+            max-width: 80%;
         }
 
         .bot-message {
-            background: #e9ecef;
+            background: #f1f3f4;
             color: #333;
             margin-right: auto;
+            max-width: 80%;
+            border: 1px solid #e1e5e9;
         }
 
         .input-container {
@@ -94,38 +155,67 @@
             gap: 10px;
         }
 
+        .input-form {
+            background: white;
+            padding: 16px 20px 20px 20px;
+            border-top: 1px solid #e1e5e9;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+
         .message-input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 2px solid #dee2e6;
-            border-radius: 25px;
+            width: 100%;
+            padding: 12px 50px 12px 16px;
+            border: 1px solid #e1e5e9;
+            border-radius: 24px;
             font-size: 14px;
             outline: none;
-            transition: border-color 0.3s ease;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
         .message-input:focus {
-            border-color: #007bff;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .message-input::placeholder {
+            color: #6c757d;
         }
 
         .send-button {
-            padding: 12px 24px;
-            background: #007bff;
-            color: white;
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
-            border-radius: 25px;
             cursor: pointer;
+            color: white;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
             font-size: 14px;
-            transition: background 0.3s ease;
         }
 
         .send-button:hover {
-            background: #0056b3;
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
 
         .send-button:disabled {
             background: #6c757d;
             cursor: not-allowed;
+            transform: translateY(-50%) scale(1);
         }
 
         .typing {
@@ -145,13 +235,65 @@
             border-radius: 5px;
             margin-bottom: 10px;
         }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 16px;
+            }
+            
+            .header h1 {
+                font-size: 1em;
+            }
+            
+            .header-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+            
+            .messages {
+                padding: 16px 16px 100px 16px;
+            }
+            
+            .message {
+                max-width: 85%;
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+            
+            .input-form {
+                padding: 12px 16px 16px 16px;
+            }
+            
+            .message-input {
+                padding: 10px 45px 10px 14px;
+                font-size: 14px;
+            }
+            
+            .send-button {
+                width: 28px;
+                height: 28px;
+                right: 20px;
+                font-size: 12px;
+            }
+            
+            .close-button {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+                right: 12px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🤖 Nafis Ahmed Khan - AI Agent</h1>
-            <p>Ask me anything about Nafis's professional background, skills, and experience!</p>
+            <div class="header-content">
+                <div class="header-icon">🤖</div>
+                <h1>Virtual Assistant</h1>
+            </div>
+            <button class="close-button" onclick="closeChat()" title="Close Chat">✕</button>
         </div>
         
         <div class="chat-container">
@@ -161,15 +303,15 @@
                 </div>
             </div>
             
-            <div class="input-container">
+            <div class="input-form">
                 <input 
                     type="text" 
                     id="messageInput" 
                     class="message-input" 
-                    placeholder="Ask about Nafis's experience, skills, projects..." 
+                    placeholder="Your message" 
                     maxlength="500"
                 >
-                <button id="sendButton" class="send-button">Send</button>
+                <button id="sendButton" class="send-button">➤</button>
             </div>
         </div>
     </div>
@@ -259,6 +401,27 @@
                 sendMessage();
             }
         });
+
+        // Close chat function (to be called from parent window or iframe)
+        function closeChat() {
+            // Try to communicate with parent window to close the iframe
+            try {
+                if (window.parent && window.parent !== window) {
+                    // We're in an iframe, send message to parent
+                    window.parent.postMessage('closeChat', '*');
+                } else {
+                    // We're in the main window, just hide or go back
+                    window.history.back();
+                }
+            } catch (e) {
+                // Fallback: try to close or go back
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.close();
+                }
+            }
+        }
 
         // Focus on input when page loads
         messageInput.focus();
