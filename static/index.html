@@ -290,8 +290,8 @@
     <div class="container">
         <div class="header">
             <div class="header-content">
-                <div class="header-icon">🤖</div>
-                <h1>Virtual Assistant</h1>
+                <div class="header-icon" id="headerIcon">🤖</div>
+                <h1 id="headerTitle">Virtual Assistant</h1>
             </div>
             <button class="close-button" onclick="closeChat()" title="Close Chat">✕</button>
         </div>
@@ -423,6 +423,42 @@
             }
         }
 
+        // Get URL parameters and customize iframe
+        function initializeFromParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Customize title
+            const title = urlParams.get('title');
+            if (title) {
+                document.getElementById('headerTitle').textContent = title;
+                document.title = title;
+            }
+            
+            // Customize icon
+            const icon = urlParams.get('icon');
+            if (icon) {
+                document.getElementById('headerIcon').textContent = icon;
+            }
+            
+            // Customize welcome message
+            const welcomeMessage = urlParams.get('welcome');
+            if (welcomeMessage) {
+                const botMessages = document.querySelectorAll('.bot-message');
+                if (botMessages.length > 0) {
+                    botMessages[0].textContent = decodeURIComponent(welcomeMessage);
+                }
+            }
+            
+            console.log('🎛️ Iframe initialized with params:', {
+                title: title || 'Virtual Assistant',
+                icon: icon || '🤖',
+                welcomeMessage: welcomeMessage || 'default'
+            });
+        }
+
+        // Initialize on page load
+        initializeFromParams();
+        
         // Focus on input when page loads
         messageInput.focus();
     </script>

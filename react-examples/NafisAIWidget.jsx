@@ -13,7 +13,9 @@ const NafisAIWidget = ({
   height = "600px",
   showToggle = true,
   position = "bottom-right", // "bottom-right", "bottom-left", "fixed", "inline"
-  title = "Chat with Nafis's AI Assistant"
+  title = "Chat with Nafis's AI Assistant",
+  icon = "🤖",
+  welcomeMessage = "Hello! I'm an AI assistant representing Nafis Ahmed Khan. Feel free to ask me about his professional background, skills, experience, qualifications, or any career-related questions. How can I help you today?"
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,21 +28,50 @@ const NafisAIWidget = ({
 
   // Toggle widget visibility
   const toggleWidget = () => {
+    console.log('🔄 Toggling widget. Current state:', isOpen, '→', !isOpen);
     setIsOpen(!isOpen);
+  };
+
+  // Build iframe URL with query parameters
+  const getIframeUrl = () => {
+    const url = new URL(agentUrl);
+    
+    // Add customization parameters
+    if (title !== "Chat with Nafis's AI Assistant") {
+      url.searchParams.set('title', title);
+    }
+    if (icon !== "🤖") {
+      url.searchParams.set('icon', icon);
+    }
+    if (welcomeMessage !== "Hello! I'm an AI assistant representing Nafis Ahmed Khan. Feel free to ask me about his professional background, skills, experience, qualifications, or any career-related questions. How can I help you today?") {
+      url.searchParams.set('welcome', encodeURIComponent(welcomeMessage));
+    }
+    
+    console.log('🔗 Built iframe URL:', url.toString());
+    return url.toString();
   };
 
   // Listen for close messages from iframe
   useEffect(() => {
     const handleMessage = (event) => {
+      console.log('🔔 Message received in React:', {
+        data: event.data,
+        origin: event.origin,
+        source: event.source
+      });
+      
       if (event.data === 'closeChat') {
+        console.log('✅ Closing chat window from iframe message');
         setIsOpen(false);
       }
     };
 
+    console.log('📡 Setting up message listener in React component');
     window.addEventListener('message', handleMessage);
     
     // Cleanup event listener
     return () => {
+      console.log('🧹 Cleaning up message listener');
       window.removeEventListener('message', handleMessage);
     };
   }, []);
@@ -94,6 +125,12 @@ const NafisAIWidget = ({
           height: height,
         };
     }
+  };
+
+  // Manual close function for debugging
+  const manualClose = () => {
+    console.log('🔧 Manual close triggered');
+    setIsOpen(false);
   };
 
   // Toggle button styles (modern chat button)
@@ -173,7 +210,7 @@ const NafisAIWidget = ({
         {/* AI Agent Iframe - Seamless */}
         <iframe
           ref={iframeRef}
-          src={agentUrl}
+          src={getIframeUrl()}
           style={{
             width: '100%',
             height: '100%',
@@ -181,7 +218,7 @@ const NafisAIWidget = ({
             display: isLoading ? 'none' : 'block',
           }}
           onLoad={handleIframeLoad}
-          title="Nafis Ahmed Khan AI Assistant"
+          title={title}
           allow="camera; microphone; geolocation"
           sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation"
         />
@@ -192,29 +229,38 @@ const NafisAIWidget = ({
 
 export default NafisAIWidget;
 
-// Usage Examples for Seamless Chat Window:
+// Usage Examples for Customizable Chat Window:
 
-// 1. Seamless floating chat (no background/borders)
+// 1. Custom floating chat with personalized title
 // <NafisAIWidget 
-//   agentUrl="https://nafis-ai-agent.onrender.com/iframe"
+//   agentUrl="http://localhost:8000/iframe"
 //   position="bottom-right"
 //   width="380px"
 //   height="600px"
+//   title="Ask About Nafis's Experience"
+//   icon="💬"
+//   welcomeMessage="Hi! Ask me anything about Nafis Ahmed Khan's professional experience!"
 // />
 
-// 2. Seamless inline chat (pure iframe)
+// 2. Inline chat for portfolio section
 // <NafisAIWidget 
-//   agentUrl="https://nafis-ai-agent.onrender.com/iframe"
+//   agentUrl="http://localhost:8000/iframe"
 //   position="inline"
 //   showToggle={false}
 //   width="100%"
 //   height="500px"
+//   title="Career Assistant"
+//   icon="🚀"
+//   welcomeMessage="Welcome! I can help you learn about Nafis's skills and background."
 // />
 
-// 3. Full-screen seamless chat
+// 3. Full-screen HR interview assistant
 // <NafisAIWidget 
-//   agentUrl="https://nafis-ai-agent.onrender.com/iframe"
+//   agentUrl="http://localhost:8000/iframe"
 //   position="fixed"
 //   width="700px"
 //   height="800px"
+//   title="Interview Assistant"
+//   icon="👔"
+//   welcomeMessage="Hello HR Team! I'm here to answer questions about Nafis Ahmed Khan's qualifications."
 // />
