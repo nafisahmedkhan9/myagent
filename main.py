@@ -6,9 +6,13 @@ from pydantic import BaseModel
 from groq import Groq
 import config
 import logging
+from typing import Optional, List
 
 # Import for iframe security headers
 from fastapi import Response
+
+# Import database manager
+from database import db_manager
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -61,12 +65,31 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 class ChatRequest(BaseModel):
     message: str
+    session_id: Optional[str] = None
+    user_id: Optional[str] = None
     
 class ChatResponse(BaseModel):
     response: str
+    session_id: str
     
 class ResumeUpdateRequest(BaseModel):
     resume_content: str
+
+class SessionRequest(BaseModel):
+    user_id: Optional[str] = None
+    title: Optional[str] = "New Chat"
+
+class SessionResponse(BaseModel):
+    session_id: str
+    user_id: str
+    title: str
+
+class SessionHistoryResponse(BaseModel):
+    session_id: str
+    messages: List[dict]
+    
+class UserSessionsResponse(BaseModel):
+    sessions: List[dict]
 
 @app.get("/")
 async def root():
@@ -110,21 +133,30 @@ async def chat(request: ChatRequest):
         )
     
     try:
+        # Handle session management
+        session_id = request.session_id
+        user_id = request.user_id or db_manager.generate_user_id()
+        
+        # Create new session if none provided
+        if not session_id:
+            session_id = db_manager.create_session(user_id, "New Chat")
+        elif not db_manager.session_exists(session_id):
+            session_id = db_manager.create_session(user_id, "New Chat")
+        
+        # Get conversation context from database
+        conversation_history = db_manager.get_conversation_context(session_id, max_messages=8)
+        
         # Prepare the system prompt with resume content
         system_prompt = config.SYSTEM_PROMPT.format(resume_content=config.RESUME_CONTENT)
         
+        # Build messages array with conversation history
+        messages = [{"role": "system", "content": system_prompt}]
+        messages.extend(conversation_history)
+        messages.append({"role": "user", "content": request.message})
+        
         # Make API call to Groq
         chat_completion = groq_client.chat.completions.create(
-            messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": request.message
-                }
-            ],
+            messages=messages,
             model=config.MODEL_NAME,
             temperature=0.7,
             max_tokens=1000,
@@ -132,11 +164,65 @@ async def chat(request: ChatRequest):
         
         response_text = chat_completion.choices[0].message.content
         
-        return ChatResponse(response=response_text)
+        # Save the conversation to database
+        db_manager.save_message(session_id, request.message, response_text)
+        
+        return ChatResponse(response=response_text, session_id=session_id)
         
     except Exception as e:
         logger.error(f"Error in chat endpoint: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
+
+@app.post("/sessions", response_model=SessionResponse)
+async def create_session(request: SessionRequest):
+    """Create a new chat session"""
+    try:
+        user_id = request.user_id or db_manager.generate_user_id()
+        session_id = db_manager.create_session(user_id, request.title)
+        
+        return SessionResponse(
+            session_id=session_id,
+            user_id=user_id,
+            title=request.title
+        )
+    except Exception as e:
+        logger.error(f"Error creating session: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error creating session: {str(e)}")
+
+@app.get("/sessions/{user_id}", response_model=UserSessionsResponse)
+async def get_user_sessions(user_id: str):
+    """Get recent sessions for a user"""
+    try:
+        sessions = db_manager.get_user_sessions(user_id, limit=5)
+        return UserSessionsResponse(sessions=sessions)
+    except Exception as e:
+        logger.error(f"Error getting user sessions: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error getting sessions: {str(e)}")
+
+@app.get("/sessions/{session_id}/history", response_model=SessionHistoryResponse)
+async def get_session_history(session_id: str):
+    """Get chat history for a specific session"""
+    try:
+        if not db_manager.session_exists(session_id):
+            raise HTTPException(status_code=404, detail="Session not found")
+        
+        messages = db_manager.get_session_history(session_id)
+        return SessionHistoryResponse(session_id=session_id, messages=messages)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting session history: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error getting history: {str(e)}")
+
+@app.delete("/sessions/cleanup")
+async def cleanup_old_sessions(days_old: int = 30):
+    """Clean up sessions older than specified days"""
+    try:
+        db_manager.cleanup_old_sessions(days_old)
+        return {"message": f"Cleaned up sessions older than {days_old} days"}
+    except Exception as e:
+        logger.error(f"Error cleaning up sessions: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error cleaning up: {str(e)}")
 
 @app.post("/update-resume")
 async def update_resume(request: ResumeUpdateRequest):

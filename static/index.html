@@ -67,11 +67,16 @@
             display: none;
         }
 
-        .close-button {
+        .header-controls {
             position: absolute;
             right: 16px;
             top: 50%;
             transform: translateY(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .close-button, .new-chat-button {
             background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
@@ -87,9 +92,13 @@
             backdrop-filter: blur(10px);
         }
 
-        .close-button:hover {
+        .new-chat-button {
+            font-size: 14px;
+        }
+
+        .close-button:hover, .new-chat-button:hover {
             background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-50%) scale(1.1);
+            transform: scale(1.1);
         }
 
         .chat-container {
@@ -293,7 +302,10 @@
                 <div class="header-icon" id="headerIcon">🤖</div>
                 <h1 id="headerTitle">Virtual Assistant</h1>
             </div>
-            <button class="close-button" onclick="closeChat()" title="Close Chat">✕</button>
+            <div class="header-controls">
+                <button class="new-chat-button" onclick="startNewChat()" title="Start New Chat">🔄</button>
+                <button class="close-button" onclick="closeChat()" title="Close Chat">✕</button>
+            </div>
         </div>
         
         <div class="chat-container">
@@ -324,6 +336,16 @@
         // API base URL - update this if deployed elsewhere
         // Use relative URL to work both locally and in production
         const API_BASE_URL = window.location.origin;
+
+        // Session management
+        let currentSessionId = localStorage.getItem('nafis_chat_session_id');
+        let currentUserId = localStorage.getItem('nafis_chat_user_id');
+        
+        // Generate user ID if not exists
+        if (!currentUserId) {
+            currentUserId = 'user_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+            localStorage.setItem('nafis_chat_user_id', currentUserId);
+        }
 
         function addMessage(content, isUser = false) {
             const messageDiv = document.createElement('div');
@@ -357,6 +379,50 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
+        // Load conversation history for current session
+        async function loadSessionHistory() {
+            if (!currentSessionId) return;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/sessions/${currentSessionId}/history`);
+                if (!response.ok) return; // Session doesn't exist or error
+                
+                const data = await response.json();
+                
+                // Clear current messages (keep welcome message)
+                const welcomeMessage = messagesContainer.querySelector('.message.bot-message');
+                messagesContainer.innerHTML = '';
+                if (welcomeMessage) {
+                    messagesContainer.appendChild(welcomeMessage);
+                }
+                
+                // Add historical messages
+                data.messages.forEach(msg => {
+                    if (msg.role === 'user') {
+                        addMessage(msg.content, true);
+                    } else if (msg.role === 'assistant') {
+                        addMessage(msg.content, false);
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading session history:', error);
+            }
+        }
+
+        // Function to start a new chat session
+        function startNewChat() {
+            currentSessionId = null;
+            localStorage.removeItem('nafis_chat_session_id');
+            
+            // Clear messages (keep welcome message)
+            const welcomeMessage = messagesContainer.querySelector('.message.bot-message');
+            messagesContainer.innerHTML = '';
+            if (welcomeMessage) {
+                messagesContainer.appendChild(welcomeMessage);
+            }
+        }
+
         async function sendMessage() {
             const message = messageInput.value.trim();
             if (!message) return;
@@ -373,7 +439,11 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ message: message }),
+                    body: JSON.stringify({ 
+                        message: message,
+                        session_id: currentSessionId,
+                        user_id: currentUserId
+                    }),
                 });
 
                 removeTyping();
@@ -385,6 +455,12 @@
 
                 const data = await response.json();
                 addMessage(data.response);
+                
+                // Save session ID for future requests
+                if (data.session_id && data.session_id !== currentSessionId) {
+                    currentSessionId = data.session_id;
+                    localStorage.setItem('nafis_chat_session_id', currentSessionId);
+                }
 
             } catch (error) {
                 removeTyping();
@@ -450,18 +526,17 @@
                 }
             }
             
-            console.log('🎛️ Iframe initialized with params:', {
-                title: title || 'Virtual Assistant',
-                icon: icon || '🤖',
-                welcomeMessage: welcomeMessage || 'default'
-            });
         }
 
         // Initialize on page load
-        initializeFromParams();
+        async function initializeChat() {
+            initializeFromParams();
+            await loadSessionHistory(); // Load previous conversation if exists
+            messageInput.focus();
+        }
         
-        // Focus on input when page loads
-        messageInput.focus();
+        // Initialize everything when page loads
+        initializeChat();
     </script>
 </body>
 </html>

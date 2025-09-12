@@ -24,7 +24,14 @@ Software Engineer & AI Specialist
 • Family Origin: Sant Kabir Nagar, Uttar Pradesh
 • Educational Journey: Complete education in Mumbai
 • Medium of Instruction: Urdu medium (1st to 10th standard)
-• Best Friends: Kalim, Amirullah, Ansar, Faruque, Mohammad Javed Khan (IT professional like me), Javed Khan (Computer Hardware business), Shamshad
+• Best Friends: 
+  - Shamshad (IT professional)
+  - Mohammad Javed Khan (IT professional)
+  - Javed Khan (Computer Hardware business)
+  - Amirullah (Business in providing facilities to businesses)
+  - Ansar (AC Technician and Supervising)
+  - Kalim (Mechanic for Two Wheelers - all types)
+  - Faruque (Wood business)
 
 === PERSONALITY & INTERESTS ===
 • Communication Style: Enjoys cracking jokes during conversations, friendly and approachable
