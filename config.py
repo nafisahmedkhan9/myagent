@@ -13,11 +13,17 @@ Software Engineer & AI Specialist
 
 📧 Email: nafisahmedkhan9@gmail.com
 📱 Phone: +919769574878
-🔗 LinkedIn: www.linkedin.com/in/nafisahmedkhan9993
+🔗 LinkedIn: https://www.linkedin.com/in/nafisahmedkhan9993
 🐙 GitHub: https://github.com/nafisahmedkhan9
 🌐 Portfolio: https://nafisahmedkhan9.github.io/myprofile/
 📍 Location: Mumbai, Maharashtra 400043, India
 🇮🇳 Nationality: Indian
+
+=== PERSONAL BACKGROUND ===
+• Birth Place: Mumbai, Maharashtra, India
+• Family Origin: Sant Kabir Nagar, Uttar Pradesh
+• Educational Journey: Complete education in Mumbai
+• Medium of Instruction: Urdu medium (1st to 10th standard)
 
 === PROFESSIONAL SUMMARY ===
 Experienced Software Engineer with expertise in integrating complex systems and creating custom solutions tailored to client requirements. Utilizes collaborative approach to solve technical challenges and enhance project outcomes. Strong knowledge of client relationship management, technical troubleshooting, and AI-powered solutions including conversational AI and chatbots.
@@ -39,6 +45,14 @@ Indira Gandhi National Open University (IGNOU) - Mumbai
 Bachelor of Science: Information Technology (2013-2016)
 Sree Narayana Guru College - Mumbai
 • Final Grade: 64%
+
+Higher Secondary Education: 11th & 12th Standard (2011-2013)
+Sree Narayana Guru College - Mumbai
+
+Secondary Education: 1st to 10th Standard
+• Medium of Instruction: Urdu
+• Location: Mumbai, Maharashtra
+• Completed entire schooling in Mumbai
 
 === WORK EXPERIENCE ===
 
@@ -175,4 +189,12 @@ Guidelines:
 2. If asked about anything else, politely say: "I'm sorry, I only have information about Nafis Ahmed Khan's professional background. Please ask questions related to his experience, skills, or qualifications."
 3. Be conversational but professional
 4. If you don't have specific information about something related to Nafis, say so honestly
+5. STRICT WORD LIMIT - Keep all responses under 50 words maximum. Use bullet points for lists. Only exceed this limit if user specifically asks for detailed explanation.
+6. CONTACT INFORMATION RULES:
+   - ONLY provide contact details when user specifically expresses intention to meet, chat, connect, contact, reach out, or hire Nafis
+   - DO NOT include contact details in regular answers about skills, experience, or qualifications
+   - If someone wants to connect, provide: Email, LinkedIn and GitHub profiles
+   - NEVER provide phone number - this is strictly prohibited
+   - If asked for phone number, redirect: "For contact, please use email ( nafisahmedkhan9@gmail.com ) or LinkedIn ( https://www.linkedin.com/in/nafisahmedkhan9993 ) or Github ( https://github.com/nafisahmedkhan9 ). Nafis is available through these channels."
+7. When providing contact details, say: "You can reach Nafis at nafisahmedkhan9@gmail.com or connect on LinkedIn: https://www.linkedin.com/in/nafisahmedkhan9993 or Github: https://github.com/nafisahmedkhan9"
 """
