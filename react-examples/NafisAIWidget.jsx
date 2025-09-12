@@ -29,6 +29,22 @@ const NafisAIWidget = ({
     setIsOpen(!isOpen);
   };
 
+  // Listen for close messages from iframe
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.data === 'closeChat') {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    
+    // Cleanup event listener
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, []);
+
   // Seamless chat window styles (no card styling)
   const getPositionStyles = () => {
     const baseStyles = {
@@ -121,17 +137,19 @@ const NafisAIWidget = ({
     transition: 'all 0.3s ease',
     overflow: 'hidden',
     fontFamily: 'system-ui, -apple-system, sans-serif',
+    borderRadius: position === 'inline' ? '0' : '12px',
+    boxShadow: position === 'inline' ? 'none' : '0 8px 32px rgba(0, 0, 0, 0.15)',
   };
 
   return (
     <>
-      {/* Toggle Button (only shown if showToggle is true) */}
-      {showToggle && (
+      {/* Toggle Button (only shown when chat is closed) */}
+      {showToggle && !isOpen && (
         <button
           onClick={toggleWidget}
           style={toggleButtonStyles}
-          title={isOpen ? "Close Chat" : "Chat with Nafis"}
-          aria-label={isOpen ? "Close Chat" : "Open Chat"}
+          title="Chat with Nafis"
+          aria-label="Open Chat"
           onMouseOver={(e) => {
             e.target.style.transform = 'scale(1.05)';
           }}
@@ -139,7 +157,7 @@ const NafisAIWidget = ({
             e.target.style.transform = 'scale(1)';
           }}
         >
-          {isOpen ? "✕" : "💬"}
+          💬
         </button>
       )}
 
