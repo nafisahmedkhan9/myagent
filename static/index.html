@@ -11,21 +11,33 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --vh: 1vh; /* CSS custom property for viewport height */
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: white;
             margin: 0;
             padding: 0;
             height: 100vh;
+            height: calc(var(--vh, 1vh) * 100); /* Use custom property with fallback */
             overflow: hidden;
+            overscroll-behavior: none; /* Disable pull-to-refresh on mobile */
+            -webkit-overflow-scrolling: touch;
+            touch-action: manipulation; /* Improve touch responsiveness */
         }
 
         .container {
             width: 100%;
             height: 100vh;
+            height: calc(var(--vh, 1vh) * 100); /* Use custom property with fallback */
             display: flex;
             flex-direction: column;
-            background: white;
+            background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+            position: relative;
+            min-height: 100vh;
+            min-height: calc(var(--vh, 1vh) * 100);
         }
 
         .header {
@@ -38,6 +50,9 @@
             justify-content: space-between;
             flex-shrink: 0;
             position: relative;
+            box-shadow: 0 2px 20px rgba(102, 126, 234, 0.15);
+            z-index: 10;
+            min-height: 60px; /* Ensure header height consistency */
         }
 
         .header-content {
@@ -47,20 +62,32 @@
         }
 
         .header-icon {
-            width: 32px;
-            height: 32px;
-            background: rgba(255, 255, 255, 0.2);
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .header h1 {
-            font-size: 1.1em;
+            font-size: 1.2em;
             margin: 0;
             font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         .header p {
@@ -112,9 +139,12 @@
         .messages {
             flex: 1;
             overflow-y: auto;
-            padding: 20px 20px 100px 20px;
-            background: white;
+            padding: 20px 20px 120px 20px;
+            background: transparent;
             scroll-behavior: smooth;
+            overscroll-behavior: contain; /* Prevent overscroll issues */
+            -webkit-overflow-scrolling: touch;
+            min-height: 0; /* Allow flex item to shrink */
         }
 
         .messages::-webkit-scrollbar {
@@ -135,12 +165,15 @@
         }
 
         .message {
-            margin-bottom: 15px;
-            padding: 12px 16px;
-            border-radius: 18px;
+            margin-bottom: 16px;
+            padding: 14px 18px;
+            border-radius: 20px;
             max-width: 80%;
             word-wrap: break-word;
-            animation: fadeIn 0.3s ease-in;
+            animation: fadeIn 0.4s ease-out;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+            position: relative;
         }
 
         .user-message {
@@ -149,14 +182,17 @@
             margin-left: auto;
             text-align: right;
             max-width: 80%;
+            box-shadow: 0 3px 12px rgba(102, 126, 234, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .bot-message {
-            background: #f1f3f4;
-            color: #333;
+            background: rgba(255, 255, 255, 0.9);
+            color: #2c3e50;
             margin-right: auto;
             max-width: 80%;
-            border: 1px solid #e1e5e9;
+            border: 1px solid rgba(102, 126, 234, 0.15);
+            backdrop-filter: blur(10px);
         }
 
         .input-container {
@@ -165,32 +201,38 @@
         }
 
         .input-form {
-            background: white;
-            padding: 16px 20px 20px 20px;
-            border-top: 1px solid #e1e5e9;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 18px 20px 22px 20px;
+            border-top: 1px solid rgba(102, 126, 234, 0.15);
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            z-index: 5;
+            min-height: 60px; /* Ensure consistent input form height */
         }
 
         .message-input {
             width: 100%;
-            padding: 12px 50px 12px 16px;
-            border: 1px solid #e1e5e9;
-            border-radius: 24px;
-            font-size: 14px;
+            padding: 14px 55px 14px 18px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 25px;
+            font-size: 15px;
             outline: none;
-            background: #f8f9fa;
+            background: rgba(248, 249, 250, 0.8);
             transition: all 0.3s ease;
             box-sizing: border-box;
+            backdrop-filter: blur(10px);
+            font-family: inherit;
         }
 
         .message-input:focus {
             border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15), 0 2px 12px rgba(102, 126, 234, 0.2);
+            transform: translateY(-1px);
         }
 
         .message-input::placeholder {
@@ -199,26 +241,29 @@
 
         .send-button {
             position: absolute;
-            right: 24px;
+            right: 26px;
             top: 50%;
             transform: translateY(-50%);
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
             cursor: pointer;
             color: white;
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
             transition: all 0.3s ease;
-            font-size: 14px;
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .send-button:hover {
-            transform: translateY(-50%) scale(1.05);
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #7c8df1 0%, #8b5fbf 100%);
         }
 
         .send-button:disabled {
@@ -233,8 +278,14 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(15px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
         }
 
         .error {
@@ -245,52 +296,124 @@
             margin-bottom: 10px;
         }
 
+        /* Enhanced mobile responsiveness */
         @media (max-width: 768px) {
+            body {
+                overscroll-behavior-y: none; /* Prevent pull-to-refresh specifically on mobile */
+                position: fixed; /* Prevent address bar issues */
+                width: 100%;
+            }
+            
+            .container {
+                height: 100vh;
+                height: 100dvh;
+                min-height: -webkit-fill-available;
+                position: relative;
+                overflow: hidden;
+            }
+            
             .header {
+                padding: 14px 16px;
+                min-height: 56px;
+                flex-shrink: 0;
+            }
+            
+            .header h1 {
+                font-size: 1.1em;
+            }
+            
+            .header-icon {
+                width: 32px;
+                height: 32px;
+                border: 1.5px solid rgba(255, 255, 255, 0.4);
+            }
+            
+            .chat-container {
+                height: calc(100vh - 56px);
+                height: calc(100dvh - 56px);
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .messages {
+                padding: 16px 16px 130px 16px;
+                flex: 1;
+                min-height: 0;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior: contain;
+            }
+            
+            .message {
+                max-width: 90%;
                 padding: 12px 16px;
+                font-size: 15px;
+                margin-bottom: 12px;
+            }
+            
+            .input-form {
+                padding: 16px 16px 20px 16px;
+                min-height: 70px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+            
+            .message-input {
+                padding: 12px 50px 12px 16px;
+                font-size: 16px; /* Prevent zoom on iOS */
+                border-radius: 22px;
+            }
+            
+            .send-button {
+                width: 34px;
+                height: 34px;
+                right: 22px;
+                font-size: 15px;
+            }
+            
+            .close-button,
+            .new-chat-button {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+        }
+        
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 14px;
+            }
+            
+            .messages {
+                padding: 14px 14px 130px 14px;
+            }
+            
+            .input-form {
+                padding: 14px 14px 18px 14px;
+            }
+        }
+        
+        /* Landscape mobile orientation fixes */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header {
+                padding: 10px 16px;
+                min-height: 48px;
             }
             
             .header h1 {
                 font-size: 1em;
             }
             
-            .header-icon {
-                width: 28px;
-                height: 28px;
-                font-size: 14px;
-            }
-            
             .messages {
-                padding: 16px 16px 100px 16px;
-            }
-            
-            .message {
-                max-width: 85%;
-                padding: 10px 14px;
-                font-size: 14px;
+                padding: 12px 16px 110px 16px;
             }
             
             .input-form {
                 padding: 12px 16px 16px 16px;
-            }
-            
-            .message-input {
-                padding: 10px 45px 10px 14px;
-                font-size: 14px;
-            }
-            
-            .send-button {
-                width: 28px;
-                height: 28px;
-                right: 20px;
-                font-size: 12px;
-            }
-            
-            .close-button {
-                width: 28px;
-                height: 28px;
-                font-size: 14px;
-                right: 12px;
+                min-height: 60px;
             }
         }
     </style>
@@ -299,8 +422,10 @@
     <div class="container">
         <div class="header">
             <div class="header-content">
-                <div class="header-icon" id="headerIcon">🤖</div>
-                <h1 id="headerTitle">Virtual Assistant</h1>
+                <div class="header-icon" id="headerIcon">
+                    <img src="/static/myphotolatest.png" alt="Nafis Ahmed Khan" onerror="this.style.display='none'; this.parentNode.innerHTML='👤';">
+                </div>
+                <h1 id="headerTitle">Chat with Nafis</h1>
             </div>
             <div class="header-controls">
                 <button class="new-chat-button" onclick="startNewChat()" title="Start New Chat">🔄</button>
@@ -500,9 +625,25 @@
             }
         }
 
+        // Check if we're running in an iframe
+        function isInIframe() {
+            try {
+                return window.self !== window.top;
+            } catch (e) {
+                // If we can't access window.top due to cross-origin, we're probably in an iframe
+                return true;
+            }
+        }
+
         // Get URL parameters and customize iframe
         function initializeFromParams() {
             const urlParams = new URLSearchParams(window.location.search);
+            
+            // Hide close button if not in iframe (standalone web page)
+            const closeButton = document.querySelector('.close-button');
+            if (!isInIframe()) {
+                closeButton.style.display = 'none';
+            }
             
             // Customize title
             const title = urlParams.get('title');
@@ -511,10 +652,11 @@
                 document.title = title;
             }
             
-            // Customize icon
+            // Customize icon (for iframe usage)
             const icon = urlParams.get('icon');
             if (icon) {
-                document.getElementById('headerIcon').textContent = icon;
+                // If custom icon is provided via URL params, replace the image with emoji
+                document.getElementById('headerIcon').innerHTML = icon;
             }
             
             // Customize welcome message
@@ -534,6 +676,36 @@
             await loadSessionHistory(); // Load previous conversation if exists
             messageInput.focus();
         }
+        
+        // Prevent pull-to-refresh and handle mobile viewport issues
+        
+        let touchStartY = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        
+        document.addEventListener('touchmove', function(e) {
+            const touchY = e.touches[0].clientY;
+            const touchDelta = touchY - touchStartY;
+            
+            // Prevent pull-to-refresh when scrolling down at the top of the page
+            if (messagesContainer.scrollTop === 0 && touchDelta > 0) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        // Handle viewport height changes on mobile (keyboard show/hide)
+        function handleViewportChange() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        window.addEventListener('resize', handleViewportChange);
+        window.addEventListener('orientationchange', handleViewportChange);
+        
+        // Initialize viewport height
+        handleViewportChange();
         
         // Initialize everything when page loads
         initializeChat();
